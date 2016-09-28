@@ -13,7 +13,7 @@ export class SpotifyService {
             .flatMap(searchTerm => {
                 var url = "https://api.spotify.com/v1/search?type=artist&q=" + searchTerm;
                 var promise = $.getJSON(url);
-                return Observable.fromPromise(promise);
+                return Observable.from(promise);
             });
     }
 }
