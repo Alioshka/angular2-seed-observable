@@ -1,0 +1,16 @@
+node_modules
+.idea
+.npmrc
+npm-debug.log
+.log
+results*
+test-reports
+test-artifacts
+dev.debug.log
+/.settings/
+/.project
+proxy.json
+.vscode/
+~*
+jsconfig.json
+.DS_Store
