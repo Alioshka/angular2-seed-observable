@@ -1,10 +1,14 @@
 import {Component} from 'angular2/core'
 import {SpotifyService} from './spotify.service'
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'results',
     template: `
-        <h2>{{ title }}</h2>
+        <div *ngIf="!loaded">
+            <h2><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></h2>
+        </div>
+        <h2 *ngIf="loaded">{{ title }}</h2>
             <div class="row">
                 <div class="col-sm-6 col-md-4" *ngFor="#artist of artists">
                     <div class="thumbnail">
@@ -19,6 +23,7 @@ import {SpotifyService} from './spotify.service'
     providers: [SpotifyService]
 })
 export class SpotifyComponent {
+    loaded = true;
     title = "Welcome! Try to find your favorite artists!";
     artists = [];
 
@@ -32,11 +37,18 @@ export class SpotifyComponent {
                     this.artists.push(artist);
                 }
             });
+            this.loaded = true;
             if(this.artists.length <= 0){
                 this.title = 'Seems like there are no results for "' +  $("#search").val() + '"'
             }else{
                 this.title = "Search results:";
             }
         });
+
+        var keyspress = Observable.fromEvent($("#search"), "keypress");
+        keyspress.subscribe(() => {
+            this.artists = [];
+            this.loaded = false;
+        })
     }
 }

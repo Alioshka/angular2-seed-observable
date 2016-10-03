@@ -8,7 +8,7 @@ export class SpotifyService {
         return Observable.fromEvent($("#search"), "keyup")
             .map(e => e.target.value)
             .filter(text => text.length >=3)
-            .debounceTime(400)
+            .debounceTime(500)
             .distinctUntilChanged()
             .flatMap(searchTerm => {
                 var url = "https://api.spotify.com/v1/search?type=artist&q=" + searchTerm;
